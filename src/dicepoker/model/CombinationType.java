@@ -1,4 +1,4 @@
-package dicepoker;
+package dicepoker.model;
 
 /**
  * Перечисление типа комбинации.

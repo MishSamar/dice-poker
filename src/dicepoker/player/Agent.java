@@ -1,4 +1,7 @@
-package dicepoker;
+package dicepoker.player;
+
+import dicepoker.dice.DiceCup;
+import dicepoker.game.Game;
 
 /**
  * Простейший ИИ-агент, выбирающий ход по эвристике или модели.

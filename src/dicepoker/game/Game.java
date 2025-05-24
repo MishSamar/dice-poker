@@ -1,8 +1,11 @@
-package dicepoker;
+package dicepoker.game;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import dicepoker.dice.DiceCup;
+import dicepoker.player.Player;
 
 /**
  * Игровой раунд, управляющий ходами игроков.

@@ -1,8 +1,11 @@
-package dicepoker;
+package dicepoker.combination;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import dicepoker.model.CombinationType;
+import dicepoker.util.DiceUtils;
 
 /**
  * Пример реализации комбинации "Пара".

@@ -1,9 +1,12 @@
-package dicepoker;
+package dicepoker.game;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
+
+import dicepoker.config.GameConfig;
+import dicepoker.model.CombinationType;
 
 /**
  * Таблица очков игрока.

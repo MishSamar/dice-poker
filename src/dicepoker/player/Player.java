@@ -1,4 +1,8 @@
-package dicepoker;
+package dicepoker.player;
+
+import dicepoker.dice.DiceCup;
+import dicepoker.game.Game;
+import dicepoker.game.ScoreTable;
 
 /**
  * Класс, описывающий одного игрока (человека или ИИ).

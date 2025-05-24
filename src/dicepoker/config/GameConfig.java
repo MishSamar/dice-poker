@@ -1,6 +1,8 @@
-package dicepoker;
+package dicepoker.config;
 
 import java.util.*;
+
+import dicepoker.model.CombinationType;
 
 /**
  * Константы и конфигурация правил игры.

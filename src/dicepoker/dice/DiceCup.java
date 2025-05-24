@@ -1,4 +1,4 @@
-package dicepoker;
+package dicepoker.dice;
 
 import java.util.ArrayList;
 import java.util.List;

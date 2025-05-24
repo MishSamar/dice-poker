@@ -1,4 +1,4 @@
-package dicepoker;
+package dicepoker.util;
 
 import java.util.List;
 import java.util.Map;

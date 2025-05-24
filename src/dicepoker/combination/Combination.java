@@ -1,6 +1,8 @@
-package dicepoker;
+package dicepoker.combination;
 
 import java.util.List;
+
+import dicepoker.model.CombinationType;
 
 /**
  * Общий интерфейс для всех комбинаций.
