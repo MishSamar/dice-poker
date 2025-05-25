@@ -13,7 +13,7 @@ public class DiceCup {
     /**
      * Бросок заданного числа костей.
      */
-    public List<Integer> roll(int count) {
+    public static List<Integer> roll(int count) {
         List<Integer> result = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             result.add(RAND.nextInt(6) + 1);
