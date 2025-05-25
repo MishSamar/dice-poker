@@ -16,9 +16,11 @@ public class TwoPairs implements Combination {
     }
 
     public int score(List<Integer> d) {
-        List<Integer> ps = DiceUtils.kinds(d, 2);
-        if (ps.size() < 2) return 0;
-        ps.sort(Collections.reverseOrder());
-        return ps.get(0) * 2 + ps.get(1) * 2;
+        return DiceUtils.kinds(d, 2).stream().mapToInt(i -> i).sum() * 2;
+
+//        List<Integer> ps = DiceUtils.kinds(d, 2);
+//        if (ps.size() < 2) return 0;
+//        ps.sort(Collections.reverseOrder());
+//        return ps.get(0) * 2 + ps.get(1) * 2;
     }
 }

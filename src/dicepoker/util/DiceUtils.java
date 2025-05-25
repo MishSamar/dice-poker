@@ -8,12 +8,17 @@ import java.util.stream.Collectors;
 
 /**
  * Утилитарные методы для работы с костями.
+ * Содержит функции для генерации бросков и анализа комбинаций.
  */
 public class DiceUtils {
+
     private static final Random RAND = new Random();
 
     /**
-     * Бросок заданного числа костей.
+     * Выполняет бросок заданного количества шестигранных костей.
+     *
+     * @param count Количество кубиков для броска.
+     * @return Список результатов броска, где каждый элемент — значение от 1 до 6.
      */
     public static List<Integer> roll(int count) {
         List<Integer> result = new ArrayList<>(count);
@@ -23,23 +28,50 @@ public class DiceUtils {
         return result;
     }
 
-    public static Map<Integer, Long> countFaces(List<Integer> d) {
-        return d.stream().collect(Collectors.groupingBy(i -> i, Collectors.counting()));
+    /**
+     * Подсчитывает количество вхождений каждого значения в списке бросков кубиков.
+     *
+     * @param dices Список значений, выпавших на кубиках.
+     * @return Map, где ключ — значение кубика, а значение — количество его вхождений.
+     */
+    public static Map<Integer, Long> countFaces(List<Integer> dices) {
+        return dices.stream().collect(Collectors.groupingBy(i -> i, Collectors.counting()));
     }
 
-    public static boolean hasCountAtLeast(List<Integer> d, int n) {
-        return countFaces(d).values().stream().anyMatch(c -> c >= n);
+    /**
+     * Проверяет, встречается ли какое-либо значение кубика хотя бы {@code minRepetitions} раз.
+     *
+     * @param dices Список значений кубиков.
+     * @param minRepetitions Минимальное количество повторений.
+     * @return {@code true}, если какое-либо значение встречается {@code minRepetitions} раз или более; иначе {@code false}.
+     */
+    public static boolean hasCountAtLeast(List<Integer> dices, int minRepetitions) {
+        return countFaces(dices).values().stream().anyMatch(c -> c >= minRepetitions);
     }
 
-    public static int maxOfKind(List<Integer> d, int n) {
-        return countFaces(d).entrySet().stream()
-                .filter(e -> e.getValue() >= n)
+    /**
+     * Находит максимальное значение кубика, которое встречается как минимум {@code minRepetitions} раз.
+     *
+     * @param dices Список значений кубиков.
+     * @param minRepetitions Минимальное количество повторений.
+     * @return Максимальное значение кубика, удовлетворяющее условию, или {@code 0}, если такого нет.
+     */
+    public static int maxOfKind(List<Integer> dices, int minRepetitions) {
+        return countFaces(dices).entrySet().stream()
+                .filter(e -> e.getValue() >= minRepetitions)
                 .mapToInt(Map.Entry::getKey).max().orElse(0);
     }
 
-    public static List<Integer> kinds(List<Integer> d, int n) {
-        return countFaces(d).entrySet().stream()
-                .filter(e -> e.getValue() >= n)
+    /**
+     * Возвращает список всех значений кубиков, которые встречаются как минимум {@code minRepetitions} раз.
+     *
+     * @param dices Список значений кубиков.
+     * @param minRepetitions Минимальное количество повторений.
+     * @return Список значений, встречающихся не менее {@code minRepetitions} раз.
+     */
+    public static List<Integer> kinds(List<Integer> dices, int minRepetitions) {
+        return countFaces(dices).entrySet().stream()
+                .filter(e -> e.getValue() >= minRepetitions)
                 .map(Map.Entry::getKey).toList();
     }
 }

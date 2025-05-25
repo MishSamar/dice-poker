@@ -11,7 +11,7 @@ public class FullHouse implements Combination {
     }
 
     public boolean matches(List<Integer> d) {
-        return DiceUtils.kinds(d, 3).size() == 1 && DiceUtils.kinds(d, 2).size() == 1;
+        return DiceUtils.kinds(d, 3).size() == 1 && DiceUtils.kinds(d, 2).size() == 2;
     }
 
     public int score(List<Integer> d) {
