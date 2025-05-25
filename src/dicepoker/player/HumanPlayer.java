@@ -9,8 +9,8 @@ import java.util.Scanner;
 import dicepoker.combination.Combination;
 import dicepoker.combination.CombinationFactory;
 import dicepoker.config.GameConfig;
-import dicepoker.dice.DiceCup;
 import dicepoker.model.CombinationType;
+import dicepoker.util.DiceUtils;
 
 public class HumanPlayer extends Player {
     public HumanPlayer(String name) {
@@ -18,8 +18,8 @@ public class HumanPlayer extends Player {
     }
 
     @Override
-    public void play(DiceCup cup, Scanner in) {
-        List<Integer> dice = DiceCup.roll(5);
+    public void play(Scanner in) {
+        List<Integer> dice = DiceUtils.roll(5);
         int rolls = 0;
         boolean firstTry = false;
         while (rolls < 2 && !firstTry) {
@@ -56,7 +56,7 @@ public class HumanPlayer extends Player {
             }
             List<Integer> newDice = new ArrayList<>(dice);
             for (int i : idxs) {
-                newDice.set(i - 1, DiceCup.roll(1).getFirst());
+                newDice.set(i - 1, DiceUtils.roll(1).getFirst());
             }
             dice = newDice;
             rolls++;

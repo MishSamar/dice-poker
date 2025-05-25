@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import dicepoker.dice.DiceCup;
 import dicepoker.player.HumanPlayer;
 
 public class Main {
@@ -17,12 +16,11 @@ public class Main {
             System.out.print("Name " + i + ": ");
             players.add(new HumanPlayer(in.nextLine()));
         }
-        DiceCup cup = new DiceCup();
         // поочередные ходы
         while (players.stream().anyMatch(p -> !p.getScoreTable().isComplete())) {
             for (var p : players) {
                 System.out.println("--- " + p.getName() + " turn ---");
-                p.play(cup, in);
+                p.play(in);
             }
         }
         // результаты

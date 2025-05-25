@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-import dicepoker.dice.DiceCup;
 import dicepoker.player.Player;
 
 /**
@@ -19,12 +18,11 @@ public class Game {
     }
 
     public void start() {
-        DiceCup cup = new DiceCup();
         // Пока не заполнены таблицы всех игроков
         while (!gameOver()) {
             for (Player p : players) {
                 Scanner scanner = new Scanner(System.in);
-                p.play(cup, scanner);
+                p.play(scanner);
             }
         }
         announceWinner();
