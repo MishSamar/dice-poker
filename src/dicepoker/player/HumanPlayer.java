@@ -21,9 +21,11 @@ public class HumanPlayer extends Player {
     public void play(DiceCup cup, Scanner in) {
         List<Integer> dice = DiceCup.roll(5);
         int rolls = 0;
-        while (rolls < 2) {
         boolean firstTry = false;
         while (rolls < 2 && !firstTry) {
+            if (GameConfig.SORTING_VALUES) {
+                dice.sort(Comparator.comparing(Integer::valueOf));
+            }
             System.out.println("Dice: " + dice);
             List<Integer> idxs = List.of();
             while (true) { // Ввод прощающий ошибки
