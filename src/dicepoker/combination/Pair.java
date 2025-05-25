@@ -10,7 +10,7 @@ import dicepoker.util.DiceUtils;
 /**
  * Пример реализации комбинации "Пара".
  */
-public class OnePair implements Combination {
+public class Pair implements Combination {
     @Override
     public CombinationType getType() {
         return CombinationType.ONE_PAIR;

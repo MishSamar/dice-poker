@@ -1,5 +1,7 @@
 package dicepoker.player;
 
+import java.util.Scanner;
+
 import dicepoker.dice.DiceCup;
 import dicepoker.game.Game;
 import dicepoker.game.ScoreTable;
@@ -27,5 +29,5 @@ public abstract class Player {
     /**
      * Выполнить ход: бросок, перебросы, выбор комбинации.
      */
-    public abstract void playTurn(Game game, DiceCup cup);
+    public abstract void play(DiceCup cup, Scanner in);
 }

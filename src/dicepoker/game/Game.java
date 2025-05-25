@@ -3,6 +3,7 @@ package dicepoker.game;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 import dicepoker.dice.DiceCup;
 import dicepoker.player.Player;
@@ -22,7 +23,8 @@ public class Game {
         // Пока не заполнены таблицы всех игроков
         while (!gameOver()) {
             for (Player p : players) {
-                p.playTurn(this, cup);
+                Scanner scanner = new Scanner(System.in);
+                p.play(cup, scanner);
             }
         }
         announceWinner();
@@ -35,7 +37,7 @@ public class Game {
 
     private void announceWinner() {
         Player winner = players.stream()
-                .max(Comparator.comparingInt(p -> p.getScoreTable().totalScore()))
+                .max(Comparator.comparingInt(p -> p.getScoreTable().total()))
                 .orElseThrow();
         System.out.println("Winner: " + winner.getName());
     }

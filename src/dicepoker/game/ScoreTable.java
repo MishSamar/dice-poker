@@ -1,9 +1,7 @@
 package dicepoker.game;
 
 import java.util.EnumMap;
-import java.util.EnumSet;
 import java.util.Map;
-import java.util.Set;
 
 import dicepoker.config.GameConfig;
 import dicepoker.model.CombinationType;
@@ -13,25 +11,37 @@ import dicepoker.model.CombinationType;
  */
 public class ScoreTable {
     private final Map<CombinationType, Integer> scores = new EnumMap<>(CombinationType.class);
-    private final Set<CombinationType> used = EnumSet.noneOf(CombinationType.class);
 
     public boolean isComplete() {
-        return used.containsAll(GameConfig.AVAILABLE_COMBINATIONS);
+        return scores.size() == GameConfig.AVAILABLE_COMBINATIONS.size();
     }
 
-    public void record(CombinationType type, int score) {
-        if (used.contains(type)) throw new IllegalStateException("Комбинация уже занята");
-        scores.put(type, score);
-        used.add(type);
+    public void record(CombinationType t, int s) {
+        scores.put(t, s);
     }
 
-    public int totalScore() {
-        return scores.values().stream().mapToInt(Integer::intValue).sum()
-                + schoolBonus();
+    public boolean used(CombinationType t) {
+        return scores.containsKey(t);
     }
 
-    private int schoolBonus() {
-        // Логика бонуса школы, если нужно
-        return 0;
+    public int total() {
+        return scores.values().stream().mapToInt(i -> i).sum() + bonus();
+    }
+
+    private int bonus() {
+        int sum = 0;
+        for (var t : CombinationType.values())
+            if (t.name().matches("ONES|TWOS|THREES|FOURS|FIVES|SIXES"))
+                sum += scores.getOrDefault(t, 0);
+        return sum >= 63 ? 50 : 0;
+    }
+
+    public void printTable() {
+        for (var t : GameConfig.AVAILABLE_COMBINATIONS) {
+            String v = used(t) ? scores.get(t) + "" : "-";
+            System.out.printf("%15s: %s\n", t, v);
+        }
+        System.out.println("Bonus: " + bonus());
+        System.out.println("Total: " + total());
     }
 }
