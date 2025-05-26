@@ -30,7 +30,8 @@ public class Straight implements Combination {
     }
 
     public int score(List<Integer> dices) {
-        return Objects.requireNonNull(patternMatching(dices)).stream().mapToInt(i -> i).sum();
+        Set<Integer> pattern = patternMatching(dices);
+        return pattern == null ? 0 : pattern.stream().mapToInt(i -> i).sum();
     }
 
     private Set<Integer> patternMatching(List<Integer> dices) {
