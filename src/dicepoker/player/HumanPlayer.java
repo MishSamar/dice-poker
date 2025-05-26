@@ -37,7 +37,6 @@ public class HumanPlayer extends Player {
                 }
 
                 try {
-                    System.err.println("начали трай");
                     idxs = Arrays.stream(line.split("\\s+"))
                             .map(s -> {
                                 int num = Integer.parseInt(s);
