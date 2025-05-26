@@ -37,15 +37,13 @@ public class HumanPlayer extends Player {
                 }
 
                 try {
-                    idxs = Arrays.stream(line.split("\\s+"))
-                            .map(s -> {
-                                int num = Integer.parseInt(s);
-                                if (num < 1 || num > 5) {
-                                    throw new IllegalArgumentException("Positions must be between 1-5");
-                                }
-                                return num;
-                            })
-                            .toList();
+                    idxs = Arrays.stream(line.split("\\s+")).map(s -> {
+                        int num = Integer.parseInt(s);
+                        if (num < 1 || num > 5) {
+                            throw new IllegalArgumentException("Positions must be between 1-5");
+                        }
+                        return num;
+                    }).toList();
                     break;
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input! Use numbers separated by spaces (e.g. '1 3 5')");
@@ -60,10 +58,12 @@ public class HumanPlayer extends Player {
             dice = newDice;
             rolls++;
         }
+
         System.out.println("Final: " + dice);
         scoreTable.printTable();
         System.out.print("Enter combination to fill: ");
         CombinationType choice;
+
         while (true) {
             System.out.print("Enter combination to fill: ");
             String input = in.nextLine().trim().toUpperCase();
@@ -76,19 +76,18 @@ public class HumanPlayer extends Player {
                 boolean finalFirstTry = firstTry;
                 combos.stream().filter(c -> finalChoice == c.getType()).findFirst().ifPresent(c -> {
                     int sc = c.score(finalDice);
-                    if (finalFirstTry && GameConfig.FIRST_THROW_DOUBLE && !finalChoice.name().matches(
-                            "ONES|TWOS" +
-                                    "|THREES|FOURS|FIVES" +
-                                    "|SIXES"))
+
+                    if (finalFirstTry && GameConfig.FIRST_THROW_DOUBLE && !finalChoice.name().matches("ONES|TWOS|THREES|FOURS|FIVES|SIXES")) {
                         sc *= 2;
+                    }
+
                     scoreTable.record(finalChoice, sc);
                     System.out.println("Scored " + sc);
                 });
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid combination! Available options: ");
-                Arrays.stream(CombinationType.values())
-                        .forEach(ct -> System.out.print(ct.name() + " "));
+                Arrays.stream(CombinationType.values()).forEach(ct -> System.out.print(ct.name() + " "));
                 System.out.println("\n");
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
