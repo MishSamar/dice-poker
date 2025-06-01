@@ -44,4 +44,8 @@ public class ScoreTable {
         System.out.println("Bonus: " + bonus());
         System.out.println("Total: " + total());
     }
+
+    public int getScore(CombinationType t) {
+        return scores.get(t);
+    }
 }

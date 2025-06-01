@@ -14,6 +14,7 @@ public final class GameConfig {
     public static final boolean FIRST_THROW_DOUBLE = true;
 
     public static final boolean SORTING_VALUES = true;
+    public static final boolean HINTS = true;
 
     /**
      * Набор доступных комбинаций. Можно менять, убавлять или добавлять.
