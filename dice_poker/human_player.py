@@ -41,8 +41,8 @@ class HumanPlayer(Player):
             # парсим и валидируем ввод
             while True:
                 raw = input(
-                    f"Введите номера кубиков для переброса (1–5), через пробел, или Enter, чтобы оставить все: ").strip()
-                parts = raw.split()
+                    f"Введите номера кубиков для переброса слитно или Enter, чтобы оставить все: ").strip()
+                parts = raw
                 try:
                     idxs = sorted({int(p) - 1 for p in parts})
                     if not any(i < 0 or i > 4 for i in idxs):
@@ -68,8 +68,10 @@ class HumanPlayer(Player):
 
         # --- 3. Показ всех 15 комбинаций и выбор ---
         for i, comb in enumerate(self.combinations, start=1):
-            used_mark = "(used)" if self.score_table.used(comb.get_type()) else ""
-            print(f"{i:2}. {comb.get_type().name:15} → {comb.score(dice):2} {used_mark}")
+            used_mark = f"(yet {self.score_table.get(comb.get_type())})" if self.score_table.used(
+                comb.get_type()) else ""
+            double_mark = "*2" if self.double_score(first_no_reroll, comb) else ""
+            print(f"{i:2}. {comb.get_type().name:15} → {comb.score(dice):2}{double_mark} {used_mark}")
 
         while True:
             choice = input(f"Выберите комбинацию (1–{len(self.combinations)}): ").strip()
@@ -89,14 +91,17 @@ class HumanPlayer(Player):
         # --- 4. Запись очков и бонус за первый бросок ---
         score = comb.score(dice)
         # двойной счёт, если не было переброса после первого броска и правило включено
-        if first_no_reroll \
-                and GameConfig.FIRST_THROW_DOUBLE \
-                and comb.get_type() not in {
-            CombinationType.ONES, CombinationType.TWOS, CombinationType.THREES,
-            CombinationType.FOURS, CombinationType.FIVES, CombinationType.SIXES
-        }:
+        if self.double_score(first_no_reroll, comb):
             score *= 2
             print("Бонус: удвоенный счёт за первый бросок!")
 
         self.score_table.record(comb.get_type(), score)
         print(f"Записано {score} очков в {comb.get_type().name}\n")
+
+    def double_score(self, first_no_reroll, comb) -> bool:
+        return first_no_reroll \
+            and GameConfig.FIRST_THROW_DOUBLE \
+            and comb.get_type() not in {
+                CombinationType.ONES, CombinationType.TWOS, CombinationType.THREES,
+                CombinationType.FOURS, CombinationType.FIVES, CombinationType.SIXES
+            }

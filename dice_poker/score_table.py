@@ -15,6 +15,9 @@ class ScoreTable:
     def is_complete(self) -> bool:
         return len(self.scores) == len(CombinationType)
 
+    def get(self, comb_type: CombinationType) -> int:
+        return self.scores[comb_type]
+
     def total(self) -> int:
         base = sum(self.scores.values())
         upper = sum(self.scores.get(t, 0) for t in [
