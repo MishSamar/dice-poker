@@ -20,5 +20,3 @@ public class ThreeOfKind implements Combination {
         return DiceUtils.maxOfKind(d, 3) * 3;
     }
 }
-
-
